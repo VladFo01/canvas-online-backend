@@ -1,0 +1,22 @@
+const appConstructor = require('../app');
+const config = require('../config/config');
+const { logger } = require('../app/utils/helpers');
+
+const { port } = config.app;
+
+process.on('unhandledRejection', (error) => {
+  logger.error(error);
+});
+process.on('warning', (warning) => {
+  logger.warn(warning);
+});
+
+const start = () => {
+  const app = appConstructor.init();
+
+  app.listen(port, () => {
+    logger.info(`The server is running on port ${port}`);
+  });
+};
+
+start();
