@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/extensions
-const { appWs } = require('../../bin/www');
+const { appWs } = require('../../app');
 const { buildConnectionMsg } = require('../utils/helpers');
 
 const aWss = appWs.getWss();

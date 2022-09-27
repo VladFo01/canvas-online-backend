@@ -23,16 +23,11 @@ const initMiddlewares = (app) => {
 };
 
 module.exports.init = () => {
-  const app = express();
+  const appWs = expressWs(express());
 
-  initMiddlewares(app);
+  initMiddlewares(appWs.app);
 
-  const appWs = expressWs(app);
+  initRoutes(appWs.app);
 
-  initRoutes(app);
-
-  return {
-    app,
-    appWs
-  };
+  return appWs;
 };
