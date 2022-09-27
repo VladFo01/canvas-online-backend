@@ -27,9 +27,12 @@ module.exports.init = () => {
 
   initMiddlewares(app);
 
-  expressWs(app);
+  const appWs = expressWs(app);
 
   initRoutes(app);
 
-  return app;
+  return {
+    app,
+    appWs
+  };
 };

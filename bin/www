@@ -12,11 +12,17 @@ process.on('warning', (warning) => {
 });
 
 const start = () => {
-  const app = appConstructor.init();
+  const { app, appWs } = appConstructor.init();
 
   app.listen(port, () => {
     logger.info(`The server is running on port ${port}`);
   });
+
+  return appWs;
 };
 
-start();
+const appWs = start();
+
+module.exports = {
+  appWs,
+};
