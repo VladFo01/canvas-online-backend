@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 const { websocketService } = require('../../../services');
 
@@ -8,8 +7,7 @@ class UserController {
       msg = JSON.parse(msg);
       switch (msg.method) {
         case 'connection':
-          websocketService.connectionHandler(ws, msg);
-          break;
+          return websocketService.connectionHandler(ws, msg);
         default:
           return null;
       }

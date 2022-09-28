@@ -1,11 +1,14 @@
 const express = require('express');
-const expressWs = require('express-ws');
+const appWs = require('express-ws')(express());
 const cors = require('cors');
 const helmet = require('helmet');
 
 const { globalErrorHandler, requestLogger } = require('./app/utils/middlewares');
+const { clientRouter } = require('./app/routers/client');
 
-const initRoutes = (app) => {};
+const initRoutes = (app) => {
+  app.use('/', clientRouter);
+};
 
 const initMiddlewares = (app) => {
   /* http security */
@@ -23,11 +26,9 @@ const initMiddlewares = (app) => {
 };
 
 module.exports.init = () => {
-  const appWs = expressWs(express());
-
   initMiddlewares(appWs.app);
 
   initRoutes(appWs.app);
 
-  return appWs;
+  return appWs.app;
 };

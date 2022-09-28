@@ -1,4 +1,4 @@
-const { responseService } = require('../../services/responseService');
+const { responseService } = require('../../services');
 const { logger } = require('../helpers');
 
 const globalErrorHandler = (error, req, res, next) => {

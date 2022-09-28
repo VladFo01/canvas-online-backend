@@ -1,23 +1,24 @@
-const { appWs } = require('../../app');
 const { buildConnectionMsg } = require('../utils/helpers');
-
-const aWss = appWs.getWss();
 
 class WebsocketService {
   constructor() {
-    this.aWss = aWss;
+    this.connections = {};
   }
 
-  broadcastMessage(msg) {
-    this.aWss.clients.forEach((client) => {
+  broadcastMessage(msg, id) {
+    this.connections[id].forEach((client) => {
       client.send(msg);
     });
   }
 
   connectionHandler(ws, msg) {
     // eslint-disable-next-line no-param-reassign
-    ws.id = msg.id;
-    this.broadcastMessage(buildConnectionMsg(msg.username));
+    if (!(msg.id in this.connections)) {
+      this.connections[msg.id] = [];
+    }
+    this.connections[msg.id].push(ws);
+
+    this.broadcastMessage(buildConnectionMsg(msg.username), msg.id);
   }
 }
 
