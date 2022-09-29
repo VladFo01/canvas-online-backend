@@ -2,12 +2,14 @@
 const { websocketService } = require('../../../services');
 
 class UserController {
-  userWsHandler(ws, req) {
+  userWsHandler(ws) {
     ws.on('message', (msg) => {
       msg = JSON.parse(msg);
       switch (msg.method) {
         case 'connection':
           return websocketService.connectionHandler(ws, msg);
+        case 'draw':
+          return websocketService.broadcastMessage(msg, msg.id);
         default:
           return null;
       }

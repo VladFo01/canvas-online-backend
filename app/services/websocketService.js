@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const { buildConnectionMsg } = require('../utils/helpers');
 
 class WebsocketService {
@@ -5,9 +6,13 @@ class WebsocketService {
     this.connections = {};
   }
 
+  sendMessage(socket, msg) {
+    socket.send(JSON.stringify(msg));
+  }
+
   broadcastMessage(msg, id) {
     this.connections[id].forEach((client) => {
-      client.send(msg);
+      this.sendMessage(client, msg);
     });
   }
 
@@ -18,7 +23,7 @@ class WebsocketService {
     }
     this.connections[msg.id].push(ws);
 
-    this.broadcastMessage(buildConnectionMsg(msg.username), msg.id);
+    this.broadcastMessage(buildConnectionMsg(msg), msg.id);
   }
 }
 

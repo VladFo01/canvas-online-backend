@@ -1,4 +1,8 @@
-const buildConnectionMsg = (username) => `User "${username}" was connected!`;
+const buildConnectionMsg = ({ id, username }) =>  ({
+  id,
+  username,
+  method: 'connection'
+})
 
 module.exports = {
   buildConnectionMsg,
