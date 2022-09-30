@@ -9,3 +9,6 @@ env/
 
 # vscode settings
 .vscode/
+
+# images
+files/
