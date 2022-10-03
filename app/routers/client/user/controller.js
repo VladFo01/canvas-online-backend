@@ -10,6 +10,12 @@ class UserController {
           return websocketService.connectionHandler(ws, msg);
         case 'draw':
           return websocketService.broadcastMessage(msg, msg.id);
+        case 'save':
+          return websocketService.broadcastMessage(msg, msg.id);
+        case 'redo':
+          return websocketService.broadcastMessage(msg, msg.id);
+        case 'undo':
+          return websocketService.broadcastMessage(msg, msg.id);
         default:
           return null;
       }
