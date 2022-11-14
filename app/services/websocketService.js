@@ -17,7 +17,6 @@ class WebsocketService {
   }
 
   connectionHandler(ws, msg) {
-    // eslint-disable-next-line no-param-reassign
     if (!(msg.id in this.connections)) {
       this.connections[msg.id] = [];
     }
